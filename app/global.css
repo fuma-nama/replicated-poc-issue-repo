@@ -1,0 +1,20 @@
+@import "tailwindcss" source(none);
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+@import "fumadocs-ui/css/catppuccin.css";
+
+@source ".";
+@source "../components";
+@source "../content";
+@source '../node_modules/fumadocs-ui/dist/**/*.js';
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+:root {
+  --fd-nav-height: 100vh !important;
+}
