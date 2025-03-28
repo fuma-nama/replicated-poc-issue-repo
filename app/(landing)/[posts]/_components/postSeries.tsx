@@ -1,4 +1,4 @@
-import { FC, ComponentType } from "react";
+import type { ComponentType } from "react";
 import { PostData } from "./postCards";
 import { HeadingLevel } from "@/lib/types";
 import { createCompiler } from "@fumadocs/mdx-remote";
@@ -18,7 +18,9 @@ interface PostSeriesProps {
   posts: PostData[];
 }
 
-const compiler = createCompiler();
+const compiler = createCompiler({
+  rehypeCodeOptions: false,
+});
 
 export async function PostSeries({
   title,
@@ -34,10 +36,11 @@ export async function PostSeries({
     try {
       console.log("compile");
       const compiled = await compiler.compile({ source: "**Post Series**" });
+      console.log("compile done");
       MdxContent = compiled.body as ComponentType;
     } catch (err) {
-      error = err;
       console.error(err);
+      error = err;
     }
   }
 
