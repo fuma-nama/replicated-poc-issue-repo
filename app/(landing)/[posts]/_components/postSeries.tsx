@@ -1,7 +1,7 @@
 import { FC, ComponentType } from "react";
 import { PostData } from "./postCards";
 import { HeadingLevel } from "@/lib/types";
-import { compileMDX } from "@fumadocs/mdx-remote";
+import { createCompiler } from "@fumadocs/mdx-remote";
 
 const ErrorComponent: ComponentType<{ error: unknown }> = ({ error }) => (
   <p className="text-red-500 font-semibold">
@@ -18,6 +18,8 @@ interface PostSeriesProps {
   posts: PostData[];
 }
 
+const compiler = createCompiler();
+
 export const PostSeries: FC<PostSeriesProps> = async ({
   title,
   description,
@@ -30,10 +32,11 @@ export const PostSeries: FC<PostSeriesProps> = async ({
 
   if (introduction) {
     try {
-      const compiled = await compileMDX({ source: "**Post Series**" });
+      const compiled = await compiler.compile({ source: "**Post Series**" });
       MdxContent = compiled.body as ComponentType;
     } catch (err) {
       error = err;
+      console.error(err);
     }
   }
 
