@@ -19,7 +19,13 @@ interface PostSeriesProps {
 }
 
 const compiler = createCompiler({
-  rehypeCodeOptions: false,
+  rehypeCodeOptions: {
+    lazy: true,
+    themes: {
+      light: "catppuccin-latte",
+      dark: "catppuccin-mocha",
+    },
+  },
 });
 
 export async function PostSeries({
