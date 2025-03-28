@@ -20,18 +20,19 @@ interface PostSeriesProps {
 
 const compiler = createCompiler();
 
-export const PostSeries: FC<PostSeriesProps> = async ({
+export async function PostSeries({
   title,
   description,
   headingLevel = "h2",
   introduction,
   posts,
-}) => {
+}: PostSeriesProps) {
   let MdxContent: ComponentType | null = null;
   let error: unknown = null;
 
   if (introduction) {
     try {
+      console.log("compile");
       const compiled = await compiler.compile({ source: "**Post Series**" });
       MdxContent = compiled.body as ComponentType;
     } catch (err) {
@@ -41,4 +42,4 @@ export const PostSeries: FC<PostSeriesProps> = async ({
   }
 
   return <p>Series Placeholder</p>;
-};
+}
